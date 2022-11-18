@@ -11,3 +11,5 @@ export type ImageEditorProps = {
   onEditingComplete: (imageData: ImageData) => void;
   imageUri: string | null;
 };
+
+export const ImageEditor: React.FC<ImageEditorProps>;
