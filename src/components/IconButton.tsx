@@ -1,8 +1,12 @@
-import React from "react";
-import { TouchableOpacity } from "react-native";
-import { Icon } from "./Icon";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { FeatherIconIDs, Icon, MaterialIconIDs } from "./Icon";
 
-export function IconButton(props) {
+type IconButton = {
+  text: string;
+  iconID: MaterialIconIDs | FeatherIconIDs;
+} & TouchableOpacityProps;
+
+export function IconButton(props: IconButton) {
   const { text, iconID, ...buttonProps } = props;
   const iconProps = { text, iconID };
   return (

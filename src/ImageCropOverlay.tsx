@@ -1,8 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, View } from "react-native";
 import {
+  GestureEvent,
   GestureHandlerRootView,
+  HandlerStateChangeEvent,
+  HandlerStateChangeEventPayload,
   PanGestureHandler,
+  PanGestureHandlerEventPayload,
   State,
 } from "react-native-gesture-handler";
 import { useRecoilState } from "recoil";
@@ -11,6 +15,11 @@ import { accumulatedPanState, cropSizeState, imageBoundsState } from "./Store";
 
 const horizontalSections = ["top", "middle", "bottom"];
 const verticalSections = ["left", "middle", "right"];
+
+type GestureHandlerEventPayloadType =
+  GestureEvent<PanGestureHandlerEventPayload>;
+type HandlerStateChangeEventType =
+  HandlerStateChangeEvent<PanGestureHandlerEventPayload>;
 
 const ImageCropOverlay = () => {
   const [selectedFrameSection, setSelectedFrameSection] = useState("");
@@ -61,7 +70,7 @@ const ImageCropOverlay = () => {
   const isLeft = selectedFrameSection.endsWith("left");
   const isTop = selectedFrameSection.startsWith("top");
 
-  const onOverlayMove = ({ nativeEvent }) => {
+  const onOverlayMove = ({ nativeEvent }: GestureHandlerEventPayloadType) => {
     if (selectedFrameSection !== "") {
       if (isMovingSection()) {
         Animated.event(
@@ -112,7 +121,15 @@ const ImageCropOverlay = () => {
     }
   };
 
-  const getTargetCropFrameBounds = ({ translationX, translationY }) => {
+  type Translate = {
+    translationX: number;
+    translationY: number;
+  };
+
+  const getTargetCropFrameBounds = ({
+    translationX,
+    translationY,
+  }: Translate) => {
     let x = 0;
     let y = 0;
 
@@ -129,18 +146,24 @@ const ImageCropOverlay = () => {
     return { x, y };
   };
 
-  const onOverlayRelease = (nativeEvent) => {
+  const onOverlayRelease = (
+    nativeEvent: Readonly<
+      HandlerStateChangeEventPayload & PanGestureHandlerEventPayload
+    >
+  ) => {
     isMovingSection()
       ? checkCropBounds(nativeEvent)
       : checkResizeBounds(nativeEvent);
     setSelectedFrameSection("");
   };
 
-  const onHandlerStateChange = ({ nativeEvent }) => {
+  const onHandlerStateChange = ({
+    nativeEvent,
+  }: HandlerStateChangeEventType) => {
     if (nativeEvent.state === State.END) onOverlayRelease(nativeEvent);
   };
 
-  const checkCropBounds = ({ translationX, translationY }) => {
+  const checkCropBounds = ({ translationX, translationY }: Translate) => {
     let accDx = accumulatedPan.x + translationX;
 
     if (accDx <= imageBounds.x) {
@@ -162,7 +185,7 @@ const ImageCropOverlay = () => {
     setAccumulatedPan({ x: accDx, y: accDy });
   };
 
-  const checkResizeBounds = ({ translationX, translationY }) => {
+  const checkResizeBounds = ({ translationX, translationY }: Translate) => {
     let { width: maxWidth, height: maxHeight } = imageBounds;
     const { width: minWidth, height: minHeight } = minimumCropDimensions;
 
@@ -211,6 +234,7 @@ const ImageCropOverlay = () => {
   return (
     <View style={styles.container}>
       <GestureHandlerRootView style={{ flex: 1 }}>
+        {/* @ts-ignore */}
         <PanGestureHandler
           onGestureEvent={onOverlayMove}
           onHandlerStateChange={(e) => onHandlerStateChange(e)}
