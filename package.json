@@ -1,0 +1,49 @@
+{
+  "name": "expo-cropper-image",
+  "version": "0.0.1",
+  "description": "Allows user to crop image with given aspect ratio for react native using expo on Android and IOS - (Workaround for IOS always square images).",
+  "main": "./dist/src/index.js",
+  "types": "./src/typescript/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "keywords": [
+    "expo-cropper-image",
+    "edit-image",
+    "crop-image",
+    "edit",
+    "crop",
+    "image",
+    "image-picker",
+    "react-native",
+    "expo",
+    "ios",
+    "android"
+  ],
+  "author": "NitoBa",
+  "license": "MIT",
+  "peerDependencies": {
+    "@expo/vector-icons": "*",
+    "expo-image-manipulator": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-native-gesture-handler": "*"
+  },
+  "devDependencies": {
+    "@expo/vector-icons": "13.0.0",
+    "expo-image-manipulator": "10.3.1",
+    "react": "^18.1.0",
+    "react-native": "^0.70.6",
+    "react-native-gesture-handler": "2.2.1",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "@types/react": "^18.0.25",
+    "@types/react-native": "^0.70.6",
+    "recoil": "0.7.3"
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  }
+}

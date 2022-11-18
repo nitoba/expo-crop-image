@@ -1,0 +1,31 @@
+import { Feather, MaterialIcons } from "@expo/vector-icons";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+
+export function Icon(props) {
+  return (
+    <View style={styles.container}>
+      {props.iconID === "x" ? (
+        <Feather name={props.iconID} size={26} color={"white"} />
+      ) : (
+        <MaterialIcons name={props.iconID} size={26} color={"white"} />
+      )}
+      <Text style={styles.text}>{props.text}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    height: 64,
+    width: 80,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 8,
+  },
+  text: {
+    color: "#fff",
+    textAlign: "center",
+  },
+});
