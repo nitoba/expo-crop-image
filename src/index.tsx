@@ -30,6 +30,7 @@ function ImageEditorCore(props: ImageEditorProps) {
   const [isEdit] = useRecoilState(isEditState)
 
   const initialize = useCallback(async () => {
+    setProcessing(true)
     if (imageUri) {
       const { width: pickerWidth, height: pickerHeight } =
         await ImageManipulator.manipulateAsync(imageUri, [])
@@ -41,6 +42,7 @@ function ImageEditorCore(props: ImageEditorProps) {
       })
 
       setReady(true)
+      setProcessing(false)
     }
   }, [])
 
