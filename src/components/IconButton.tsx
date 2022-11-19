@@ -6,12 +6,10 @@ type IconButtonProps = {
   iconID: MaterialIconIDs | FeatherIconIDs
 } & TouchableOpacityProps
 
-export function IconButton(props: IconButtonProps) {
-  const { text, iconID, ...buttonProps } = props
-  const iconProps = { text, iconID }
+export function IconButton({ text, iconID, ...buttonProps }: IconButtonProps) {
   return (
     <TouchableOpacity {...buttonProps}>
-      <Icon {...iconProps} />
+      <Icon text={text} iconID={iconID} />
     </TouchableOpacity>
   )
 }

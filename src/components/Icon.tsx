@@ -10,19 +10,19 @@ type IconProps = {
   iconID: MaterialIconIDs | FeatherIconIDs
 }
 
-export function Icon(props: IconProps) {
+export function Icon({ text, iconID }: IconProps) {
   return (
     <View style={styles.container}>
-      {props.iconID === 'x' ? (
-        <Feather name={props.iconID} size={26} color={'white'} />
+      {iconID === 'x' ? (
+        <Feather name={iconID} size={26} color={'white'} />
       ) : (
         <MaterialIcons
-          name={props.iconID as MaterialIconIDs}
+          name={iconID as MaterialIconIDs}
           size={26}
           color={'white'}
         />
       )}
-      <Text style={styles.text}>{props.text}</Text>
+      <Text style={styles.text}>{text}</Text>
     </View>
   )
 }

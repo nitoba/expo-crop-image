@@ -1,9 +1,20 @@
+import { ComponentProps, ReactNode } from 'react'
 import { View, StyleSheet, ActivityIndicator } from 'react-native'
 
-function Processing() {
+type Props = {
+  color?: string
+  size?: ComponentProps<typeof ActivityIndicator>['size']
+  customComponent?: ReactNode
+}
+
+function Processing({
+  color = '#FFF',
+  size = 'large',
+  customComponent,
+}: Props) {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="#ffffff" />
+      {customComponent ?? <ActivityIndicator color={color} size={size} />}
     </View>
   )
 }

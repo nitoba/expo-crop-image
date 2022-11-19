@@ -1,5 +1,5 @@
 import * as ImageManipulator from 'expo-image-manipulator'
-import { useCallback, useEffect } from 'react'
+import { ReactNode, useCallback, useEffect } from 'react'
 import { Modal, StatusBar, StyleSheet, View } from 'react-native'
 import { RecoilRoot, useRecoilState } from 'recoil'
 import { ImageEditorProps } from './@types'
@@ -15,13 +15,14 @@ import {
   readyState,
 } from './Store'
 
-function ImageEditorCore(props: ImageEditorProps) {
+function ImageEditorCore(props: Omit<ImageEditorProps, 'isVisible'>) {
   const {
     minimumCropDimensions = { width: 100, height: 100 },
     fixedAspectRatio = 0.66666666666,
     onEditingCancel,
     onEditingComplete,
     imageUri = null,
+    processingComponent,
   } = props
   const [imageData, setImageData] = useRecoilState(imageDataState)
   const [, setReady] = useRecoilState(readyState)
@@ -78,12 +79,16 @@ function ImageEditorCore(props: ImageEditorProps) {
       }}
     >
       <StatusBar hidden={true} />
-      <ImageEditorView />
+      <ImageEditorView processingComponent={processingComponent} />
     </EditorContext.Provider>
   )
 }
 
-export function ImageEditorView() {
+type Props = {
+  processingComponent?: ReactNode
+}
+
+export function ImageEditorView({ processingComponent }: Props) {
   const [ready] = useRecoilState(readyState)
   const [processing] = useRecoilState(processingState)
 
@@ -95,15 +100,15 @@ export function ImageEditorView() {
           <EditingWindow />
         </View>
       )}
-      {processing && <Processing />}
+
+      {processing && <Processing customComponent={processingComponent} />}
     </>
   )
 }
 
-export function ImageEditor(props: ImageEditorProps) {
-  // TODO: Add support to open and close modal editor using boolean properties
+export function ImageEditor({ isVisible, ...props }: ImageEditorProps) {
   return (
-    <Modal visible={true} style={styles.modalContainer}>
+    <Modal visible={isVisible} style={styles.modalContainer}>
       <RecoilRoot>
         <ImageEditorCore {...props} />
       </RecoilRoot>

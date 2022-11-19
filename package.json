@@ -2,14 +2,18 @@
   "name": "expo-crop-image",
   "version": "0.0.4",
   "description": "Allows user to crop image with given aspect ratio for react native using expo on Android and IOS - (Workaround for IOS always square images).",
-  "main": "./dist/index.js",
-  "types": "./src/@types/index.d.ts",
+  "main": "index.js",
+  "types": "@types/index.d.ts",
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc --build && npm run move-types",
+    "build:dev": "rm -rf ./example-app/node_modules/expo-crop-image && tsc --build tsconfig.dev.json && npm run move-types:dev",
+    "build:watch": "tsc --watch",
     "prepare": "husky install",
     "lint": "eslint src --ext .tsx,.ts --ignore-pattern node_modules/",
     "lint:fix": "npm run lint -- --fix",
-    "commit": "git-cz --allow-empty"
+    "commit": "git-cz --allow-empty",
+    "move-types": "mkdir ./dist/@types && cp ./src/@types/index.d.ts ./dist/@types/",
+    "move-types:dev": "mkdir ./example-app/node_modules/expo-crop-image/@types && cp ./src/@types/index.d.ts ./example-app/node_modules/expo-crop-image/@types/ && cp package.json ./example-app/node_modules/expo-crop-image/"
   },
   "keywords": [
     "expo-crop-image",
@@ -44,12 +48,12 @@
     "@types/react-native": "^0.70.6",
     "commitizen": "^4.2.5",
     "eslint": "^8.28.0",
-    "expo-image-manipulator": "10.3.1",
+    "expo-image-manipulator": "^11.0.0",
     "husky": "^8.0.2",
     "prettier": "^2.7.1",
     "react": "^18.1.0",
-    "react-native": "^0.70.6",
-    "react-native-gesture-handler": "2.2.1",
+    "react-native": "^0.70.5",
+    "react-native-gesture-handler": "~2.8.0",
     "typescript": "^4.9.3"
   },
   "dependencies": {
@@ -69,7 +73,6 @@
     }
   },
   "files": [
-    "dist/**",
-    "src/@types/**"
+    "dist/**"
   ]
 }
