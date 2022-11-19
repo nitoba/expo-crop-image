@@ -1,6 +1,6 @@
 {
   "name": "expo-crop-image",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Allows user to crop image with given aspect ratio for react native using expo on Android and IOS - (Workaround for IOS always square images).",
   "main": "./dist/index.js",
   "types": "./src/@types/index.d.ts",
