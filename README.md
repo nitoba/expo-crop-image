@@ -18,11 +18,11 @@ Allows user to crop image with given aspect ratio for react native using expo on
 
 <br>
 
-<div style="display:flex; align-items: center; justify-content: center; gap: 24px;">
-<img alt="preview image" src=".github/assets/preview1.png" width="200px" style="border-radius: 8px;">
-<img alt="preview image" src=".github/assets/preview2.png" width="200px" style="border-radius: 8px;">
-<img alt="preview image" src=".github/assets/preview3.png" width="200px" style="border-radius: 8px;">
-</div>
+<p align="center">
+<img alt="preview image" src=".github/assets/preview1.png" width="200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img alt="preview image" src=".github/assets/preview2.png" width="200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img alt="preview image" src=".github/assets/preview3.png" width="200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
 
 ## 🧪 Technologies
 
@@ -46,12 +46,13 @@ isRequired if there is a \* in the name field
 
 | name                      | Proptypes | Description                                                       |
 | ------------------------- | --------- | ----------------------------------------------------------------- |
-| **imageUri** \*           | string    |                                                                   |
+| **imageUri** \*           | string    | Image address that will be used for cropping                      |
 | **fixedAspectRatio** \*   | number    | Expect => aspect ratio.                                           |
 | **minimumCropDimensions** | (size)    | Expect => {width: number, height: number} [Default 100 X 100].    |
 | **onEditingCancel** \*    | func      | void                                                              |
 | **onEditingComplete** \*  | func      | Returns image object (image object fields => uri, width, height). |
-| **editorOptions** \*  | object      | Customize appearance of editor |
+| **editorOptions**         | object    | Customize appearance of editor                                    |
+| **processingComponent**   | ReactNode | Customize appearance of loading between process                   |
 
 ## Example
 
