@@ -1,7 +1,7 @@
 import * as ImageManipulator from 'expo-image-manipulator'
 import { ReactNode, useCallback, useEffect } from 'react'
 import { Modal, StatusBar, StyleSheet, View } from 'react-native'
-import { RecoilRoot, useRecoilState } from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
 import { ImageEditorProps } from './@types'
 import { EditorContext } from './context/editor'
 import { ControlBar } from './ControlBar'
@@ -9,6 +9,7 @@ import { EditingWindow } from './EditingWindow'
 import { Processing } from './Processing'
 import {
   editingModeState,
+  editorOptionsState,
   imageDataState,
   isEditState,
   processingState,
@@ -23,7 +24,9 @@ function ImageEditorCore(props: Omit<ImageEditorProps, 'isVisible'>) {
     onEditingComplete,
     imageUri = null,
     processingComponent,
+    editorOptions,
   } = props
+  const [options, setOptions] = useRecoilState(editorOptionsState)
   const [imageData, setImageData] = useRecoilState(imageDataState)
   const [, setReady] = useRecoilState(readyState)
   const [, setEditingMode] = useRecoilState(editingModeState)
@@ -65,8 +68,30 @@ function ImageEditorCore(props: Omit<ImageEditorProps, 'isVisible'>) {
   }
 
   useEffect(() => {
-    initialize().catch(console.error)
+    initialize().then(setCustomStyles).catch(console.error)
   }, [imageUri])
+
+  function setCustomStyles() {
+    if (editorOptions) {
+      const custom = Object.assign({}, options)
+      Object.entries(editorOptions).forEach(([key, value]) => {
+        if (key) {
+          // @ts-ignore
+          if (typeof custom[key] === 'object' && custom[key] !== null) {
+            // @ts-ignore
+            custom[key] = { ...custom[key], ...value }
+          } else {
+            // @ts-ignore
+            custom[key] = value
+          }
+
+          // console.log(JSON.stringify(custom, null, 2))
+        }
+      })
+
+      setOptions(custom)
+    }
+  }
 
   return (
     <EditorContext.Provider
@@ -91,11 +116,12 @@ type Props = {
 export function ImageEditorView({ processingComponent }: Props) {
   const [ready] = useRecoilState(readyState)
   const [processing] = useRecoilState(processingState)
+  const { backgroundColor } = useRecoilValue(editorOptionsState)
 
   return (
     <>
       {ready && (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor }]}>
           <ControlBar />
           <EditingWindow />
         </View>
@@ -119,7 +145,6 @@ export function ImageEditor({ isVisible, ...props }: ImageEditorProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
   },
   modalContainer: {
     flex: 1,

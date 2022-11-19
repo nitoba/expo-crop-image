@@ -9,9 +9,14 @@ import {
   PanGestureHandlerEventPayload,
   State,
 } from 'react-native-gesture-handler'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { EditorContext } from './context/editor'
-import { accumulatedPanState, cropSizeState, imageBoundsState } from './Store'
+import {
+  accumulatedPanState,
+  cropSizeState,
+  editorOptionsState,
+  imageBoundsState,
+} from './Store'
 
 const horizontalSections = ['top', 'middle', 'bottom']
 const verticalSections = ['left', 'middle', 'right']
@@ -27,6 +32,10 @@ const ImageCropOverlay = () => {
   const [imageBounds] = useRecoilState(imageBoundsState)
   const [accumulatedPan, setAccumulatedPan] =
     useRecoilState(accumulatedPanState)
+
+  const { gridOverlayColor, coverMarker, overlayCropColor } =
+    useRecoilValue(editorOptionsState)
+
   const { fixedAspectRatio, minimumCropDimensions } = useContext(EditorContext)
   const [animatedCropSize] = useState({
     width: new Animated.Value(cropSize.width),
@@ -241,6 +250,10 @@ const ImageCropOverlay = () => {
           <Animated.View
             style={[
               styles.overlay,
+              {
+                backgroundColor: overlayCropColor,
+                borderColor: gridOverlayColor,
+              },
               animatedCropSize,
               {
                 transform: [
@@ -256,23 +269,32 @@ const ImageCropOverlay = () => {
                   {verticalSections.map((verticalSection) => {
                     const key = horizontalSection + verticalSection
                     return (
-                      <View style={[styles.defaultSection]} key={key}>
+                      <View
+                        style={[
+                          styles.defaultSection,
+                          { borderColor: gridOverlayColor },
+                        ]}
+                        key={key}
+                      >
                         {key === 'topleft' ||
                         key === 'topright' ||
                         key === 'bottomleft' ||
-                        key === 'bottomright' ? (
-                          <View
-                            style={[
-                              styles.cornerMarker,
-                              horizontalSection === 'top'
-                                ? { top: -4, borderTopWidth: 7 }
-                                : { bottom: -4, borderBottomWidth: 7 },
-                              verticalSection === 'left'
-                                ? { left: -4, borderLeftWidth: 7 }
-                                : { right: -4, borderRightWidth: 7 },
-                            ]}
-                          />
-                        ) : null}
+                        key === 'bottomright'
+                          ? coverMarker?.show && (
+                              <View
+                                style={[
+                                  styles.cornerMarker,
+                                  { borderColor: coverMarker?.color },
+                                  horizontalSection === 'top'
+                                    ? { top: -4, borderTopWidth: 7 }
+                                    : { bottom: -4, borderBottomWidth: 7 },
+                                  verticalSection === 'left'
+                                    ? { left: -4, borderLeftWidth: 7 }
+                                    : { right: -4, borderRightWidth: 7 },
+                                ]}
+                              />
+                            )
+                          : null}
                       </View>
                     )
                   })}
@@ -297,8 +319,6 @@ const styles = StyleSheet.create({
   overlay: {
     height: 40,
     width: 40,
-    backgroundColor: '#33333355',
-    borderColor: '#ffffff88',
     borderWidth: 1,
   },
   sectionRow: {
@@ -308,13 +328,11 @@ const styles = StyleSheet.create({
   defaultSection: {
     flex: 1,
     borderWidth: 0.5,
-    borderColor: '#ffffff88',
     justifyContent: 'center',
     alignItems: 'center',
   },
   cornerMarker: {
     position: 'absolute',
-    borderColor: '#ffffff',
     height: 30,
     width: 30,
   },

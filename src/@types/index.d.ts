@@ -1,4 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactNode, ComponentProps } from 'react'
+import { Feather, MaterialIcons } from '@expo/vector-icons'
+export type MaterialIconNames = ComponentProps<typeof MaterialIcons>['name']
+export type FeatherIconNames = ComponentProps<typeof Feather>['name']
 
 export type ImageData = {
   uri: string
@@ -7,14 +10,15 @@ export type ImageData = {
 }
 
 type IconProps = {
-  color?: string
-  iconName?: string
+  color: string
+  text: string
+  iconName: FeatherIconNames | MaterialIconNames
 }
 
 export type EditorOptions = {
   backgroundColor?: string
   controlBar?: {
-    position: 'top' | 'bottom'
+    position?: 'top' | 'bottom'
     backgroundColor?: string
     height?: number
     cancelButton?: IconProps
@@ -23,10 +27,10 @@ export type EditorOptions = {
     saveButton?: IconProps
   }
   coverMarker?: {
-    show: boolean
-    color: string
+    show?: boolean
+    color?: string
   }
-  borderOverlayColor?: string
+  gridOverlayColor?: string
   overlayCropColor?: string
 }
 

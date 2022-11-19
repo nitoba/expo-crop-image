@@ -1,25 +1,24 @@
 import { Feather, MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-
-export type MaterialIconIDs = React.ComponentProps<typeof MaterialIcons>['name']
-export type FeatherIconIDs = React.ComponentProps<typeof Feather>['name']
+import { FeatherIconNames, MaterialIconNames } from '../@types'
 
 type IconProps = {
+  color: string
   text: string
-  iconID: MaterialIconIDs | FeatherIconIDs
+  iconID: MaterialIconNames | FeatherIconNames
 }
 
-export function Icon({ text, iconID }: IconProps) {
+export function Icon({ text, iconID, color }: IconProps) {
   return (
     <View style={styles.container}>
       {iconID === 'x' ? (
-        <Feather name={iconID} size={26} color={'white'} />
+        <Feather name={iconID} size={26} color={color} />
       ) : (
         <MaterialIcons
-          name={iconID as MaterialIconIDs}
+          name={iconID as MaterialIconNames}
           size={26}
-          color={'white'}
+          color={color}
         />
       )}
       <Text style={styles.text}>{text}</Text>
