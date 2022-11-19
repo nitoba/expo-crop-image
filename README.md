@@ -24,23 +24,13 @@ Allows user to crop image with given aspect ratio for react native using expo on
 <img alt="preview image" src=".github/assets/preview3.png" width="200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 
-## 🧪 Technologies
+## 🚀 How to install
 
-This project was developed using the following technologies:
+```bash
+npm install expo-crop-image
+```
 
-- [ReactNative](https://reactjs.org/)
-- [Expo](https://tailwindcss.com/)
-- [Recoil](https://figma.com)
-- [Typescript](https://storybook.js.org/)
-
-## 📌 Requirements
-To use this package you have to install the following dependencies
-
-- [@expo/vector-icons](https://docs.expo.dev/guides/icons/)
-- [expo-image-manipulator](https://docs.expo.dev/versions/latest/sdk/imagemanipulator/)
-- [react-native-gesture-handler](https://docs.expo.dev/versions/latest/sdk/gesture-handler/)
-
-### ImageEditor
+## ImageEditor
 
 isRequired if there is a \* in the name field
 
@@ -75,7 +65,7 @@ import { ImageEditor } from "expo-crop-image";
 />;
 ```
 
-### Editor Options
+## Editor Options
 
 ```jsx
 import { ImageEditor } from "expo-crop-image";
@@ -113,6 +103,22 @@ type IconProps = {
 }
 
 ```
+## 🧪 Technologies
+
+This project was developed using the following technologies:
+
+- [ReactNative](https://reactjs.org/)
+- [Expo](https://tailwindcss.com/)
+- [Recoil](https://figma.com)
+- [Typescript](https://storybook.js.org/)
+
+## 📌 Requirements
+To use this package you have to install the following dependencies
+
+- [@expo/vector-icons](https://docs.expo.dev/guides/icons/)
+- [expo-image-manipulator](https://docs.expo.dev/versions/latest/sdk/imagemanipulator/)
+- [react-native-gesture-handler](https://docs.expo.dev/versions/latest/sdk/gesture-handler/)
+
 
 ## 🚀 How to run locally 
 
