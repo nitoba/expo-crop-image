@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "types": "./src/typescript/index.d.ts",
   "scripts": {
-    "build": "tsc --declaration",
+    "build": "tsc --build",
     "prepare": "husky install",
     "lint": "eslint src --ext .tsx,.ts --ignore-pattern node_modules/",
     "lint:fix": "npm run lint -- --fix",
