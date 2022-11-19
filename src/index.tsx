@@ -1,7 +1,7 @@
 import * as ImageManipulator from 'expo-image-manipulator'
-import { useCallback, useEffect } from 'react'
+import { ReactNode, useCallback, useEffect } from 'react'
 import { Modal, StatusBar, StyleSheet, View } from 'react-native'
-import { RecoilRoot, useRecoilState } from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
 import { ImageEditorProps } from './@types'
 import { EditorContext } from './context/editor'
 import { ControlBar } from './ControlBar'
@@ -9,20 +9,24 @@ import { EditingWindow } from './EditingWindow'
 import { Processing } from './Processing'
 import {
   editingModeState,
+  editorOptionsState,
   imageDataState,
   isEditState,
   processingState,
   readyState,
 } from './Store'
 
-function ImageEditorCore(props: ImageEditorProps) {
+function ImageEditorCore(props: Omit<ImageEditorProps, 'isVisible'>) {
   const {
     minimumCropDimensions = { width: 100, height: 100 },
     fixedAspectRatio = 0.66666666666,
     onEditingCancel,
     onEditingComplete,
     imageUri = null,
+    processingComponent,
+    editorOptions,
   } = props
+  const [options, setOptions] = useRecoilState(editorOptionsState)
   const [imageData, setImageData] = useRecoilState(imageDataState)
   const [, setReady] = useRecoilState(readyState)
   const [, setEditingMode] = useRecoilState(editingModeState)
@@ -64,8 +68,30 @@ function ImageEditorCore(props: ImageEditorProps) {
   }
 
   useEffect(() => {
-    initialize().catch(console.error)
+    initialize().then(setCustomStyles).catch(console.error)
   }, [imageUri])
+
+  function setCustomStyles() {
+    if (editorOptions) {
+      const custom = Object.assign({}, options)
+      Object.entries(editorOptions).forEach(([key, value]) => {
+        if (key) {
+          // @ts-ignore
+          if (typeof custom[key] === 'object' && custom[key] !== null) {
+            // @ts-ignore
+            custom[key] = { ...custom[key], ...value }
+          } else {
+            // @ts-ignore
+            custom[key] = value
+          }
+
+          // console.log(JSON.stringify(custom, null, 2))
+        }
+      })
+
+      setOptions(custom)
+    }
+  }
 
   return (
     <EditorContext.Provider
@@ -78,32 +104,37 @@ function ImageEditorCore(props: ImageEditorProps) {
       }}
     >
       <StatusBar hidden={true} />
-      <ImageEditorView />
+      <ImageEditorView processingComponent={processingComponent} />
     </EditorContext.Provider>
   )
 }
 
-export function ImageEditorView() {
+type Props = {
+  processingComponent?: ReactNode
+}
+
+export function ImageEditorView({ processingComponent }: Props) {
   const [ready] = useRecoilState(readyState)
   const [processing] = useRecoilState(processingState)
+  const { backgroundColor } = useRecoilValue(editorOptionsState)
 
   return (
     <>
       {ready && (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor }]}>
           <ControlBar />
           <EditingWindow />
         </View>
       )}
-      {processing && <Processing />}
+
+      {processing && <Processing customComponent={processingComponent} />}
     </>
   )
 }
 
-export function ImageEditor(props: ImageEditorProps) {
-  // TODO: Add support to open and close modal editor using boolean properties
+export function ImageEditor({ isVisible, ...props }: ImageEditorProps) {
   return (
-    <Modal visible={true} style={styles.modalContainer}>
+    <Modal visible={isVisible} style={styles.modalContainer}>
       <RecoilRoot>
         <ImageEditorCore {...props} />
       </RecoilRoot>
@@ -114,7 +145,6 @@ export function ImageEditor(props: ImageEditorProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
   },
   modalContainer: {
     flex: 1,

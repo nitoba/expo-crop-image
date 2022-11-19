@@ -1,17 +1,22 @@
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
-import { FeatherIconIDs, Icon, MaterialIconIDs } from './Icon'
+import { FeatherIconNames, MaterialIconNames } from '../@types'
+import { Icon } from './Icon'
 
 type IconButtonProps = {
+  color: string
   text: string
-  iconID: MaterialIconIDs | FeatherIconIDs
+  iconID: MaterialIconNames | FeatherIconNames
 } & TouchableOpacityProps
 
-export function IconButton(props: IconButtonProps) {
-  const { text, iconID, ...buttonProps } = props
-  const iconProps = { text, iconID }
+export function IconButton({
+  text,
+  iconID,
+  color,
+  ...buttonProps
+}: IconButtonProps) {
   return (
     <TouchableOpacity {...buttonProps}>
-      <Icon {...iconProps} />
+      <Icon text={text} iconID={iconID} color={color} />
     </TouchableOpacity>
   )
 }

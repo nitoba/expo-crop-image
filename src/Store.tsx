@@ -1,4 +1,5 @@
 import { atom } from 'recoil'
+import { EditorOptions } from './@types'
 
 export const imageDataState = atom({
   key: 'imageDataState',
@@ -58,4 +59,42 @@ export const editingModeState = atom({
 export const isEditState = atom({
   key: 'isEditState',
   default: false,
+})
+
+export const editorOptionsState = atom<EditorOptions>({
+  key: 'editorOptions',
+  default: {
+    backgroundColor: '#222',
+    overlayCropColor: '#33333355',
+    gridOverlayColor: '#ffffff88',
+    coverMarker: {
+      show: true,
+      color: '#fff',
+    },
+    controlBar: {
+      position: 'top',
+      height: 80,
+      backgroundColor: '#333',
+      backButton: {
+        color: '#fff',
+        iconName: 'arrow-back',
+        text: 'Back',
+      },
+      cropButton: {
+        color: '#fff',
+        iconName: 'crop',
+        text: 'Crop',
+      },
+      saveButton: {
+        color: '#fff',
+        iconName: 'done',
+        text: 'Save',
+      },
+      cancelButton: {
+        color: '#fff',
+        iconName: 'cancel',
+        text: 'Cancel',
+      },
+    },
+  },
 })
