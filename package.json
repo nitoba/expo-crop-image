@@ -1,5 +1,5 @@
 {
-  "name": "expo-cropper-image",
+  "name": "expo-crop-image",
   "version": "0.0.1",
   "description": "Allows user to crop image with given aspect ratio for react native using expo on Android and IOS - (Workaround for IOS always square images).",
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
     "commit": "git-cz --allow-empty"
   },
   "keywords": [
-    "expo-cropper-image",
+    "expo-crop-image",
     "edit-image",
     "crop-image",
     "edit",
@@ -27,7 +27,7 @@
   "author": "NitoBa",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NitoBa/expo-cropper-image.git"
+    "url": "https://github.com/NitoBa/expo-crop-image.git"
   },
   "license": "MIT",
   "peerDependencies": {
