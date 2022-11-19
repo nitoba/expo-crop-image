@@ -1,6 +1,11 @@
 Allows user to crop image with given aspect ratio for react native using expo on Android and IOS - (Workaround for IOS always square images).
 
-### API
+### Requirements
+To use this package you have to install the following dependencies
+
+[@expo/vector-icons](https://docs.expo.dev/guides/icons/)
+[expo-image-manipulator](https://docs.expo.dev/versions/latest/sdk/imagemanipulator/)
+[react-native-gesture-handler](https://docs.expo.dev/versions/latest/sdk/gesture-handler/)
 
 #### ImageEditor
 
@@ -17,7 +22,7 @@ isRequired if there is a \* in the name field
 ### Example
 
 ```jsx
-import ImageEditor from "expo-image-cropper";
+import { ImageEditor } from "expo-cropper-image";
 
 <ImageEditor
   imageUri={uri}
