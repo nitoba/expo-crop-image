@@ -22,7 +22,7 @@ isRequired if there is a \* in the name field
 ### Example
 
 ```jsx
-import { ImageEditor } from "expo-cropper-image";
+import { ImageEditor } from "expo-crop-image";
 
 <ImageEditor
   imageUri={uri}

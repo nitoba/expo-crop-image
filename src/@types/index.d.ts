@@ -13,4 +13,4 @@ export type ImageEditorProps = {
 }
 
 // eslint-disable-next-line no-undef
-export type ImageEditor = React.FC<ImageEditorProps>
+export const ImageEditor = React.FC<ImageEditorProps>
