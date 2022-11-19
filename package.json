@@ -2,18 +2,18 @@
   "name": "expo-crop-image",
   "version": "0.0.4",
   "description": "Allows user to crop image with given aspect ratio for react native using expo on Android and IOS - (Workaround for IOS always square images).",
-  "main": "index.js",
-  "types": "@types/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/@types/index.d.ts",
   "scripts": {
     "build": "tsc --build && npm run move-types",
     "build:dev": "rm -rf ./example-app/node_modules/expo-crop-image && tsc --build tsconfig.dev.json && npm run move-types:dev",
-    "build:watch": "tsc --watch",
+    "build:watch": "tsc --watch --project tsconfig.dev.json",
     "prepare": "husky install",
     "lint": "eslint src --ext .tsx,.ts --ignore-pattern node_modules/",
     "lint:fix": "npm run lint -- --fix",
     "commit": "git-cz --allow-empty",
     "move-types": "mkdir ./dist/@types && cp ./src/@types/index.d.ts ./dist/@types/",
-    "move-types:dev": "mkdir ./example-app/node_modules/expo-crop-image/@types && cp ./src/@types/index.d.ts ./example-app/node_modules/expo-crop-image/@types/ && cp package.json ./example-app/node_modules/expo-crop-image/"
+    "move-types:dev": "mkdir ./example-app/node_modules/expo-crop-image/dist/@types && cp ./src/@types/index.d.ts ./example-app/node_modules/expo-crop-image/dist/@types/ && cp package.json ./example-app/node_modules/expo-crop-image/"
   },
   "keywords": [
     "expo-crop-image",
