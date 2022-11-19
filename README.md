@@ -1,13 +1,46 @@
-Allows user to crop image with given aspect ratio for react native using expo on Android and IOS - (Workaround for IOS always square images).
+<p align="center">
+  <img alt="preview image" src=".github/assets/preview.png">
+</p>
 
-### Requirements
+<div align="center">
+  <img src="https://img.shields.io/static/v1?label=license&message=MIT&color=545454&labelColor=000" alt="License">
+  <img style="margin: 0 24px;" src="https://img.shields.io/github/forks/NitoBa/ignite-ds?label=forks&message=MIT&color=545454&labelColor=000" alt="Forks">
+  <img src="https://img.shields.io/github/stars/NitoBa/ignite-ds?label=stars&message=MIT&color=545454&labelColor=000" alt="Stars">
+</div>
+
+<h1 align="center">
+  Expo crop image
+</h1>
+
+<p align="center">
+Allows user to crop image with given aspect ratio for react native using expo on Android and IOS.
+</p>
+
+<br>
+
+<div style="display:flex; align-items: center; justify-content: center; gap: 24px;">
+<img alt="preview image" src=".github/assets/preview1.png" width="200px" style="border-radius: 8px;">
+<img alt="preview image" src=".github/assets/preview2.png" width="200px" style="border-radius: 8px;">
+<img alt="preview image" src=".github/assets/preview3.png" width="200px" style="border-radius: 8px;">
+</div>
+
+## 🧪 Technologies
+
+This project was developed using the following technologies:
+
+- [ReactNative](https://reactjs.org/)
+- [Expo](https://tailwindcss.com/)
+- [Recoil](https://figma.com)
+- [Typescript](https://storybook.js.org/)
+
+## 📌 Requirements
 To use this package you have to install the following dependencies
 
-[@expo/vector-icons](https://docs.expo.dev/guides/icons/)
-[expo-image-manipulator](https://docs.expo.dev/versions/latest/sdk/imagemanipulator/)
-[react-native-gesture-handler](https://docs.expo.dev/versions/latest/sdk/gesture-handler/)
+- [@expo/vector-icons](https://docs.expo.dev/guides/icons/)
+- [expo-image-manipulator](https://docs.expo.dev/versions/latest/sdk/imagemanipulator/)
+- [react-native-gesture-handler](https://docs.expo.dev/versions/latest/sdk/gesture-handler/)
 
-#### ImageEditor
+### ImageEditor
 
 isRequired if there is a \* in the name field
 
@@ -18,8 +51,9 @@ isRequired if there is a \* in the name field
 | **minimumCropDimensions** | (size)    | Expect => {width: number, height: number} [Default 100 X 100].    |
 | **onEditingCancel** \*    | func      | void                                                              |
 | **onEditingComplete** \*  | func      | Returns image object (image object fields => uri, width, height). |
+| **editorOptions** \*  | object      | Customize appearance of editor |
 
-### Example
+## Example
 
 ```jsx
 import { ImageEditor } from "expo-crop-image";
@@ -39,3 +73,68 @@ import { ImageEditor } from "expo-crop-image";
   }}
 />;
 ```
+
+### Editor Options
+
+```jsx
+import { ImageEditor } from "expo-crop-image";
+
+<ImageEditor
+  ...
+  editorOptions={{
+    ...
+  }}
+/>;
+
+type EditorOptions = {
+  backgroundColor?: string
+  controlBar?: {
+    position?: 'top' | 'bottom'
+    backgroundColor?: string
+    height?: number
+    cancelButton?: IconProps
+    cropButton?: IconProps
+    backButton?: IconProps
+    saveButton?: IconProps
+  }
+  coverMarker?: {
+    show?: boolean
+    color?: string
+  }
+  gridOverlayColor?: string
+  overlayCropColor?: string
+}
+
+type IconProps = {
+  color: string
+  text: string
+  iconName: FeatherIconNames | MaterialIconNames
+}
+
+```
+
+## 🚀 How to run locally 
+
+Clone the project and access the folder.
+
+```bash
+git clone https://github.com/NitoBa/expo-crop-image.git
+
+cd expo-crop-image && npm install
+cd example-app && npm install && cd ..
+```
+
+Compile the package locally
+
+```bash
+# build the package locally
+npm run build:dev 
+# watch to changes while running with app
+npm run build:watch
+```
+
+## 📝 License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+---
+
+Made with 💜 by [Bruno Alves](https://profile-website-murex.vercel.app/) 👋
