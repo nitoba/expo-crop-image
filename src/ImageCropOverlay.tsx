@@ -234,7 +234,6 @@ const ImageCropOverlay = () => {
   return (
     <View style={styles.container}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        {/* @ts-ignore */}
         <PanGestureHandler
           onGestureEvent={onOverlayMove}
           onHandlerStateChange={(e) => onHandlerStateChange(e)}
