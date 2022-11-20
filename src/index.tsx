@@ -116,14 +116,15 @@ type Props = {
 export function ImageEditorView({ processingComponent }: Props) {
   const [ready] = useRecoilState(readyState)
   const [processing] = useRecoilState(processingState)
-  const { backgroundColor } = useRecoilValue(editorOptionsState)
+  const { backgroundColor, controlBar } = useRecoilValue(editorOptionsState)
 
   return (
     <>
       {ready && (
         <View style={[styles.container, { backgroundColor }]}>
-          <ControlBar />
+          {controlBar?.position === 'top' && <ControlBar />}
           <EditingWindow />
+          {controlBar?.position === 'bottom' && <ControlBar />}
         </View>
       )}
 
