@@ -103,6 +103,7 @@ type IconProps = {
 }
 
 ```
+
 ## 🧪 Technologies
 
 This project was developed using the following technologies:
@@ -113,14 +114,14 @@ This project was developed using the following technologies:
 - [Typescript](https://storybook.js.org/)
 
 ## 📌 Requirements
+
 To use this package you have to install the following dependencies
 
 - [@expo/vector-icons](https://docs.expo.dev/guides/icons/)
 - [expo-image-manipulator](https://docs.expo.dev/versions/latest/sdk/imagemanipulator/)
 - [react-native-gesture-handler](https://docs.expo.dev/versions/latest/sdk/gesture-handler/)
 
-
-## 🚀 How to run locally 
+## 🚀 How to run locally
 
 Clone the project and access the folder.
 
@@ -135,13 +136,13 @@ Compile the package locally
 
 ```bash
 # build the package locally
-npm run build:dev 
+npm run build:dev
 # watch to changes while running with app
 npm run build:watch
 ```
 
 ## 📝 License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
----
 
-Made with 💜 by [Bruno Alves](https://profile-website-murex.vercel.app/) 👋
+## This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+Made with 💜 by [Bruno Alves](https://nito-dev.vercel.app/) 👋
