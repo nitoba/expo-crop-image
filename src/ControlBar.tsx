@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { IconButton } from './components/IconButton'
 import { EditorContext } from './context/editor'
@@ -16,7 +16,7 @@ function ControlBar() {
     await performCrop()
     setIsEdit(true)
   }
-
+  console.log('ControlBar', isEdit)
   return (
     <View
       style={[
@@ -27,42 +27,71 @@ function ControlBar() {
         },
       ]}
     >
-      <IconButton
-        iconID={
-          !isEdit
-            ? controlBar?.cancelButton?.iconName!
-            : controlBar?.backButton?.iconName!
-        }
-        color={
-          !isEdit
-            ? controlBar?.cancelButton?.color!
-            : controlBar?.backButton?.color!
-        }
-        text={
-          !isEdit
-            ? controlBar?.cancelButton?.text!
-            : controlBar?.backButton?.text!
-        }
-        onPress={() => {
-          onBackPress()
-          setIsEdit(false)
+      <View>
+        <Text
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: 16,
+            top: 0,
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        >
+          Ações rápidas
+        </Text>
+        <Text
+          style={{
+            color: 'white',
+          }}
+        >
+          {!isEdit
+            ? `Use os controles na tela para ajustar a área de recorte conforme desejado`
+            : `Envie o exercício realizado para realizar o diagnóstico da execução`}
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          width: '100%',
         }}
-      />
-      {!isEdit ? (
+      >
         <IconButton
-          iconID={controlBar?.cropButton?.iconName!}
-          text={controlBar?.cropButton?.text!}
-          color={controlBar?.cropButton?.color!}
-          onPress={onEditDone}
+          color={
+            !isEdit
+              ? controlBar?.cancelButton?.color!
+              : controlBar?.backButton?.color!
+          }
+          text={
+            !isEdit
+              ? controlBar?.cancelButton?.text!
+              : controlBar?.backButton?.text!
+          }
+          textColor={
+            !isEdit
+              ? controlBar?.cancelButton?.textColor!
+              : controlBar?.backButton?.textColor!
+          }
+          onPress={() => {
+            onBackPress()
+            setIsEdit(false)
+          }}
         />
-      ) : (
-        <IconButton
-          iconID={controlBar?.saveButton?.iconName!}
-          text={controlBar?.saveButton?.text!}
-          color={controlBar?.saveButton?.color!}
-          onPress={onSave}
-        />
-      )}
+        {!isEdit ? (
+          <IconButton
+            text={controlBar?.cropButton?.text!}
+            color={controlBar?.cropButton?.color!}
+            onPress={onEditDone}
+          />
+        ) : (
+          <IconButton
+            text={controlBar?.saveButton?.text!}
+            color={controlBar?.saveButton?.color!}
+            onPress={onSave}
+          />
+        )}
+      </View>
     </View>
   )
 }
@@ -72,9 +101,9 @@ export { ControlBar }
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 4,
+    justifyContent: 'flex-start',
+    height: 150,
   },
 })

@@ -122,9 +122,8 @@ export function ImageEditorView({ processingComponent }: Props) {
     <>
       {ready && (
         <View style={[styles.container, { backgroundColor }]}>
-          {controlBar?.position === 'top' && <ControlBar />}
           <EditingWindow />
-          {controlBar?.position === 'bottom' && <ControlBar />}
+          {controlBar?.position === 'top' && <ControlBar />}
         </View>
       )}
 

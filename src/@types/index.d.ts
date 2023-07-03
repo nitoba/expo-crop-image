@@ -13,6 +13,8 @@ type IconProps = {
   color: string
   text: string
   iconName: FeatherIconNames | MaterialIconNames
+  borderColor?: string
+  textColor?: string
 }
 
 export type EditorOptions = {
